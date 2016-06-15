@@ -1,0 +1,41 @@
+﻿@model IEnumerable<UPC_Lunch.Models.Plato>
+
+@{
+    ViewBag.Title = "View Dishes";
+}
+
+<style>
+    input[type=checkbox] {
+        /* All browsers except webkit*/
+        transform: scale(2);
+        /* Webkit browsers*/
+        -webkit-transform: scale(2);
+    }
+</style>
+
+<h1>@ViewBag.Restaurante</h1>
+<h2>Dishes</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disponible)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disponible)
+            </td>
+        </tr>
+    }
+
+</table>

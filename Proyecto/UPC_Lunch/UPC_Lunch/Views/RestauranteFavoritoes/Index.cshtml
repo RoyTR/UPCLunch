@@ -1,0 +1,80 @@
+﻿@model IEnumerable<UPC_Lunch.Models.RestauranteFavorito>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    input[type=checkbox] {
+        /* All browsers except webkit*/
+        transform: scale(2);
+        /* Webkit browsers*/
+        -webkit-transform: scale(2);
+    }
+</style>
+
+
+<h2>Favorite Restaurants</h2>
+
+<p>
+    @Html.ActionLink("Add New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Restaurante.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Restaurante.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Restaurante.MesaDisponible)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurante.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurante.RazonSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurante.MesaDisponible)
+            </td>
+            <td>
+                @Html.ActionLink("View Dishes", "ViewDishes", new { id = item.RestauranteId }) |
+                @*
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RestauranteFavoritoId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.RestauranteFavoritoId }) |
+                *@
+                @Html.ActionLink("Delete", "Delete", new { id = item.RestauranteFavoritoId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div style="text-align:center">
+    <h1>Near by Restaurants</h1>
+    @*<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=Restaurantes%20cerca%20Universidad%20Peruana%20de%20ciencias%20aplicadas&key=AIzaSyAOmQzg7jhiCyPBs39jjEiLXlqpq-nrZ2I" allowfullscreen></iframe>*@
+    <img src="~/Content/mapa.png" />
+    @*
+        <div style="text-align:center;overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;">
+            <div id="gmap-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q=Restaurantes+cerca+Universidad+Peruana+de+ciencias+aplicadas&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-code" href="http://www.hostingreviews.website/compare/ipage-vs-bluehost" id="enable-maps-data">details here</a>
+            <style>
+                #gmap-canvas .text-marker {
+                    max-width: none !important;
+                    background: none !important;
+                }
+
+                img {
+                    max-width: none;
+                }
+            </style>
+        </div>
+        <script src="https://www.hostingreviews.website/google-maps-authorization.js?id=3b5f61f3-41d2-98f3-67a4-5cd6dd309a2f&c=embed-map-code&u=1465427984" defer="defer" async="async"></script>
+    *@
+</div>

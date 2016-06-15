@@ -1,0 +1,90 @@
+﻿@model UPC_Lunch.Models.Restaurante
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Restaurante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazonSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RUC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AforoCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AforoCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MesaDisponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MesaDisponible)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RestauranteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
