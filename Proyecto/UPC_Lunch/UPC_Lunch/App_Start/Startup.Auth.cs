@@ -47,22 +47,22 @@ namespace UPC_Lunch
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: "9a1461b9-b387-4455-b164-389ea097175b",
+            //    clientSecret: "KkandoshRkjtYy6ggiJ4YbF");
 
             //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            //   consumerKey: "W3XhlQXy8fHlRxSVef42LzF6t",
+            //   consumerSecret: "jF8CGUGyeA8sH6lUtbU3G3q1hmKRd8JfbgzHYoPsALkEy1a5Md");
 
             app.UseFacebookAuthentication(
                appId: "1122576874467446",
                appSecret: "484d408dfbb891d3695f406a63ddd921");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "234764823572-9h3kf22k19dmckhml9j3hr3udl7kimr0.apps.googleusercontent.com",
+                ClientSecret = "UlaWy07Z6rFs_-knccUw0ghUN8MDgYc55y"
+            });
         }
     }
 }

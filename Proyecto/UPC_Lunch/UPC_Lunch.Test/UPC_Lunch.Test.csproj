@@ -55,6 +55,7 @@
     <Compile Include="RestauranteFavoritoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DisponibilidadPlatos.cs" />
+    <Compile Include="LoginTest.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
