@@ -122,8 +122,19 @@ namespace UPC_Lunch.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ViewDishes(int id)
+        public ActionResult ViewDishes(int id, int? NotificationId)
         {
+            if (NotificationId != null)
+            {
+                var notificacion = db.Notifications.Where(m => m.NotificationId == NotificationId.Value).SingleOrDefault();
+                if (notificacion != null)
+                {
+                    notificacion.Seen = true;
+                    db.Entry(notificacion).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
             ViewBag.Restaurante = db.Restaurantes.Where(x => x.RestauranteId == id).SingleOrDefault().RazonSocial;
             return View(db.Platos.Where(x => x.Restaurante.RestauranteId == id).ToList());
         }

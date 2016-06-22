@@ -12,12 +12,10 @@ namespace UPC_Lunch.Models
         public string Type { get; set; }
         public string Description { get; set; }
         public bool Seen { get; set; }
+        public DateTime Date { get; set; }
 
         public int RestauranteId { get; set; }
         public Restaurante Restaurante { get; set; }
-
-        public int PlatoId { get; set; }
-        public Plato Plato { get; set; }
 
         [Required]
         [EmailAddress]

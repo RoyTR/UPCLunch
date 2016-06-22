@@ -39,10 +39,10 @@
                         {
                             <li>@Html.ActionLink("Favorites", "Index", "RestauranteFavoritoes")</li>
                             <li>
-                                <a href="@Url.Action("Notifications", "notifi", "Notif")">
+                                <a href="@Url.Action("Index", "Notifications")">
                                     Notifications
                                     <span class="notification-bubble" style="display: inline; background:#f56c7e url(@Url.Content("~/Content/Images/notification.png")) no-repeat center center scroll;">
-                                        10
+                                        @UPC_Lunch.Helpers.NotificationHelper.UserNotifications(User, Request.IsAuthenticated)
                                     </span>
                                 </a>
                             </li>

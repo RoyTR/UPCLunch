@@ -1,0 +1,40 @@
+﻿@model IEnumerable<UPC_Lunch.Models.Notification>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Notifications</h2>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                See Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(!item.Seen ?  "success" : "")">
+                >
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Go", "ViewDishes", "RestauranteFavoritoes", new { id = item.RestauranteId, NotificationId = item.NotificationId }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

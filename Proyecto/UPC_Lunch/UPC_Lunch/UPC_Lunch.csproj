@@ -199,12 +199,14 @@
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PlatosController.cs" />
     <Compile Include="Controllers\RestauranteFavoritoesController.cs" />
     <Compile Include="Controllers\RestaurantesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\NotificationTypeHelper.cs" />
     <Compile Include="Migrations\201605251651488_Initial.cs" />
     <Compile Include="Migrations\201605251651488_Initial.Designer.cs">
@@ -257,6 +259,14 @@
     <Compile Include="Migrations\201606221730458_AddNotifications.cs" />
     <Compile Include="Migrations\201606221730458_AddNotifications.Designer.cs">
       <DependentUpon>201606221730458_AddNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606221955306_NotificationWithDate.cs" />
+    <Compile Include="Migrations\201606221955306_NotificationWithDate.Designer.cs">
+      <DependentUpon>201606221955306_NotificationWithDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606222013242_NotificationUpdated.cs" />
+    <Compile Include="Migrations\201606222013242_NotificationUpdated.Designer.cs">
+      <DependentUpon>201606222013242_NotificationUpdated.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -362,6 +372,7 @@
     <Content Include="Views\RestauranteFavoritoes\Edit.cshtml" />
     <Content Include="Views\RestauranteFavoritoes\Index.cshtml" />
     <Content Include="Views\RestauranteFavoritoes\ViewDishes.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -413,6 +424,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606221730458_AddNotifications.resx">
       <DependentUpon>201606221730458_AddNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221955306_NotificationWithDate.resx">
+      <DependentUpon>201606221955306_NotificationWithDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606222013242_NotificationUpdated.resx">
+      <DependentUpon>201606222013242_NotificationUpdated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

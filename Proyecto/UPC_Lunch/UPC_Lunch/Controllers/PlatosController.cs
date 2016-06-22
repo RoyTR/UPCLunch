@@ -159,6 +159,7 @@ namespace UPC_Lunch.Controllers
 
         public void EnviarNotificacionRestaurante(int idRest, bool disponible)
         {
+            DateTime date = DateTime.Now;
             List<RestauranteFavorito> lista = ListarUsuarios(idRest);
 
             Notification notification;
@@ -178,6 +179,8 @@ namespace UPC_Lunch.Controllers
                 notification.Seen = false;
                 notification.RestauranteId = lista[i].RestauranteId;
                 notification.Email = lista[i].Email;
+                notification.Date = date;
+                db.Entry(notification).State = EntityState.Added;
 
                 db.SaveChanges();
             }
@@ -185,6 +188,7 @@ namespace UPC_Lunch.Controllers
 
         public void EnviarNotificacionPlato(Plato plato, bool disponible)
         {
+            DateTime date = DateTime.Now;
             List<RestauranteFavorito> lista = ListarUsuarios(plato.Restaurante.RestauranteId);
 
             Notification notification;
@@ -198,13 +202,14 @@ namespace UPC_Lunch.Controllers
                 }
                 else
                 {
-                    notification.Type = NotificationTypeHelper.PLATO_DISPONIBLE;
+                    notification.Type = NotificationTypeHelper.PLATO_NO_DISPONIBLE;
                     notification.Description = "The Dish " + plato.Nombre + " isn't available.";
                 }
                 notification.Seen = false;
                 notification.RestauranteId = plato.Restaurante.RestauranteId;
-                notification.PlatoId = plato.PlatoId;
                 notification.Email = lista[i].Email;
+                notification.Date = date;
+                db.Entry(notification).State = EntityState.Added;
 
                 db.SaveChanges();
             }
