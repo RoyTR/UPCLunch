@@ -24,18 +24,29 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Technologies", "Contact", "Home")</li>
-                    @if (User.IsInRole("Administrator"))
+                    @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Restaurants", "Index", "Restaurantes")</li>
-                        <li>@Html.ActionLink("Users", "Index", "ApplicationUsers")</li>
-                    }
-                    else if (User.IsInRole("Restaurant"))
-                    {
-                        <li>@Html.ActionLink("Dishes & Tables", "Index", "Platos")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Favorites", "Index", "RestauranteFavoritoes")</li>
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <li>@Html.ActionLink("Restaurants", "Index", "Restaurantes")</li>
+                            <li>@Html.ActionLink("Users", "Index", "ApplicationUsers")</li>
+                        }
+                        else if (User.IsInRole("Restaurant"))
+                        {
+                            <li>@Html.ActionLink("Dishes & Tables", "Index", "Platos")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Favorites", "Index", "RestauranteFavoritoes")</li>
+                            <li>
+                                <a href="@Url.Action("Notifications", "notifi", "Notif")">
+                                    Notifications
+                                    <span class="notification-bubble" style="display: inline; background:#f56c7e url(@Url.Content("~/Content/Images/notification.png")) no-repeat center center scroll;">
+                                        10
+                                    </span>
+                                </a>
+                            </li>
+                        }
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

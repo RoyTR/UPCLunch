@@ -10,6 +10,7 @@ namespace UPC_Lunch.Models
     {
         public DbSet<Restaurante> Restaurantes { get; set; }
         public DbSet<Plato> Platos { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<RestauranteFavorito> RestaurantesFavoritos { get; set; }
     }

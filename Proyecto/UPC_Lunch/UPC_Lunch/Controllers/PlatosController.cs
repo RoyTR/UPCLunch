@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPC_Lunch.Helpers;
 using UPC_Lunch.Models;
 
 namespace UPC_Lunch.Controllers
@@ -54,6 +55,10 @@ namespace UPC_Lunch.Controllers
                 plato.Restaurante = (from obj in db.Restaurantes where obj.Email == User.Identity.Name select obj).SingleOrDefault();
                 db.Platos.Add(plato);
                 db.SaveChanges();
+
+                if (plato.Disponible)
+                    EnviarNotificacionPlato(plato, plato.Disponible);
+
                 return RedirectToAction("Index");
             }
 
@@ -87,6 +92,9 @@ namespace UPC_Lunch.Controllers
                 plato.Restaurante = (from obj in db.Restaurantes where obj.Email == User.Identity.Name select obj).SingleOrDefault();
                 db.Entry(plato).State = EntityState.Modified;
                 db.SaveChanges();
+
+                EnviarNotificacionPlato(plato, plato.Disponible);
+
                 return RedirectToAction("Index");
             }
             return View(plato);
@@ -127,6 +135,9 @@ namespace UPC_Lunch.Controllers
                 rest.MesaDisponible = true;
             db.Entry(rest).State = EntityState.Modified;
             db.SaveChanges();
+
+            EnviarNotificacionRestaurante(rest.RestauranteId, rest.MesaDisponible);
+            
             return RedirectToAction("Index");
         }
 
@@ -137,6 +148,66 @@ namespace UPC_Lunch.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public List<RestauranteFavorito> ListarUsuarios(int restId)
+        {
+            return (from obj in db.RestaurantesFavoritos
+                    where obj.RestauranteId == restId
+                    select obj).ToList();
+        }
+
+        public void EnviarNotificacionRestaurante(int idRest, bool disponible)
+        {
+            List<RestauranteFavorito> lista = ListarUsuarios(idRest);
+
+            Notification notification;
+            for (int i = 0; i < lista.Count; i++)
+            {
+                notification = new Notification();
+                if (disponible)
+                {
+                    notification.Type = NotificationTypeHelper.RESTAURANT_DISPONIBLE;
+                    notification.Description = "The Restaurant " + lista[i].Restaurante.RazonSocial + " has available Tables.";
+                }
+                else
+                {
+                    notification.Type = NotificationTypeHelper.RESTAURANT_NO_DISPONIBLE;
+                    notification.Description = "The Restaurant " + lista[i].Restaurante.RazonSocial + " doesn't have available Tables.";
+                }
+                notification.Seen = false;
+                notification.RestauranteId = lista[i].RestauranteId;
+                notification.Email = lista[i].Email;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void EnviarNotificacionPlato(Plato plato, bool disponible)
+        {
+            List<RestauranteFavorito> lista = ListarUsuarios(plato.Restaurante.RestauranteId);
+
+            Notification notification;
+            for (int i = 0; i < lista.Count; i++)
+            {
+                notification = new Notification();
+                if (disponible)
+                {
+                    notification.Type = NotificationTypeHelper.PLATO_DISPONIBLE;
+                    notification.Description = "The Dish " + plato.Nombre + " is available.";
+                }
+                else
+                {
+                    notification.Type = NotificationTypeHelper.PLATO_DISPONIBLE;
+                    notification.Description = "The Dish " + plato.Nombre + " isn't available.";
+                }
+                notification.Seen = false;
+                notification.RestauranteId = plato.Restaurante.RestauranteId;
+                notification.PlatoId = plato.PlatoId;
+                notification.Email = lista[i].Email;
+
+                db.SaveChanges();
+            }
         }
     }
 }

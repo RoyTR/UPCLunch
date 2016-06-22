@@ -205,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NotificationTypeHelper.cs" />
     <Compile Include="Migrations\201605251651488_Initial.cs" />
     <Compile Include="Migrations\201605251651488_Initial.Designer.cs">
       <DependentUpon>201605251651488_Initial.cs</DependentUpon>
@@ -253,10 +254,15 @@
     <Compile Include="Migrations\201606082110368_RestauranteFavorito.Designer.cs">
       <DependentUpon>201606082110368_RestauranteFavorito.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606221730458_AddNotifications.cs" />
+    <Compile Include="Migrations\201606221730458_AddNotifications.Designer.cs">
+      <DependentUpon>201606221730458_AddNotifications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Plato.cs" />
     <Compile Include="Models\Restaurante.cs" />
     <Compile Include="Models\RestauranteFavorito.cs" />
@@ -274,6 +280,7 @@
     <Content Include="Content\Images\about.jpg" />
     <Content Include="Content\Images\maps.png" />
     <Content Include="Content\Images\Notif.png" />
+    <Content Include="Content\Images\notification.png" />
     <Content Include="Content\Images\restaurant.jpg" />
     <Content Include="Content\mapa.png" />
     <Content Include="Content\plox.min.css" />
@@ -403,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606082110368_RestauranteFavorito.resx">
       <DependentUpon>201606082110368_RestauranteFavorito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221730458_AddNotifications.resx">
+      <DependentUpon>201606221730458_AddNotifications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
