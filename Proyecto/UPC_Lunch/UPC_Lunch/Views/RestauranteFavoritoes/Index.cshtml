@@ -10,8 +10,12 @@
         /* Webkit browsers*/
         -webkit-transform: scale(2);
     }
-</style>
 
+    #map {
+        height: 600px;
+        width: 100%;
+    }
+</style>
 
 <h2>Favorite Restaurants</h2>
 
@@ -57,10 +61,10 @@
 
 </table>
 
-<div style="text-align:center">
+<div class="text-center col-md-12" style="text-align:center">
     <h1>Near by Restaurants</h1>
     @*<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=Restaurantes%20cerca%20Universidad%20Peruana%20de%20ciencias%20aplicadas&key=AIzaSyAOmQzg7jhiCyPBs39jjEiLXlqpq-nrZ2I" allowfullscreen></iframe>*@
-    <img src="~/Content/mapa.png" />
+    @*<img src="~/Content/mapa.png" />*@
     @*
         <div style="text-align:center;overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;">
             <div id="gmap-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q=Restaurantes+cerca+Universidad+Peruana+de+ciencias+aplicadas&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-code" href="http://www.hostingreviews.website/compare/ipage-vs-bluehost" id="enable-maps-data">details here</a>
@@ -77,4 +81,49 @@
         </div>
         <script src="https://www.hostingreviews.website/google-maps-authorization.js?id=3b5f61f3-41d2-98f3-67a4-5cd6dd309a2f&c=embed-map-code&u=1465427984" defer="defer" async="async"></script>
     *@
+    <div></div>
+    <div id="map"></div>
 </div>
+@section scripts{
+    <script>
+        /*var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -12.1035086, lng: -76.9652938 },
+                zoom: 17
+            });
+
+        }
+        */
+        function initMap() {
+            var upcLatLng = { lat: -12.103490, lng: -76.963126 };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: upcLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: upcLatLng,
+                map: map,
+                title: 'UPC Monterrico'
+            });
+
+            @{List<UPC_Lunch.Models.Restaurante> lista = ViewBag.Restaurantes;
+                for (int i = 0; i < lista.Count; i++) {
+                    <text>
+            marker = new google.maps.Marker({
+                position: { lat: @Convert.ToDecimal(lista[i].Latitud), lng: @Convert.ToDecimal(lista[i].Longitud) },
+                map: map,
+                title: '@lista[i].RazonSocial'
+            });
+            </text>
+                }
+            }
+        }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByGVWcfE4NC4HMJplFVFurl5VvvLvIv0A&callback=initMap">
+    </script>
+}

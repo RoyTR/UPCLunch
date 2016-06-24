@@ -18,7 +18,12 @@ namespace UPC_Lunch.Controllers
         // GET: Platos
         public ActionResult Index()
         {
-            ViewBag.MesasDisponibles = db.Restaurantes.Where(x => x.Email == User.Identity.Name).SingleOrDefault().MesaDisponible;
+            var rest = (from obj in db.Restaurantes
+                        where obj.Email == User.Identity.Name
+                        select obj).SingleOrDefault();
+                //db.Restaurantes.Where(x => x.Email == User.Identity.Name).SingleOrDefault();
+            ViewBag.MesasDisponibles = rest.MesaDisponible;
+            //ViewBag.MesasDisponibles = db.Restaurantes.Where(x => x.Email == User.Identity.Name).SingleOrDefault().MesaDisponible;
             return View(db.Platos.Where(x => x.Restaurante.Email == User.Identity.Name).ToList());
         }
 

@@ -18,6 +18,7 @@ namespace UPC_Lunch.Controllers
         public ActionResult Index()
         {
             var restaurantesFavoritos = db.RestaurantesFavoritos.Include(r => r.Restaurante);
+            ViewBag.Restaurantes = db.Restaurantes.ToList();
             return View(restaurantesFavoritos.ToList());
         }
 

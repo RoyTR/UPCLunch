@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPC_Lunch.Helpers;
 using UPC_Lunch.Models;
 
 namespace UPC_Lunch.Controllers
@@ -14,11 +16,17 @@ namespace UPC_Lunch.Controllers
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UPCLunchContext dbUPC = new UPCLunchContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var usuariosEnRoles = (from obj in db.Roles
+                                   where obj.Name.Equals("User")
+                                   from user in obj.Users
+                                   select user.UserId);
+
+            return View(db.Users.Where(m => usuariosEnRoles.Contains(m.Id)).ToList());
         }
 
         // GET: Users/Details/5
@@ -119,8 +127,21 @@ namespace UPC_Lunch.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
+            if (applicationUser != null)
+            {
+                UserHelper.RemoveUser(applicationUser.Email);
+
+                var notificaciones = dbUPC.Notifications.Where(m => m.Email == applicationUser.Email);
+                dbUPC.Notifications.RemoveRange(notificaciones);
+                db.SaveChanges();
+
+                var favoritos = dbUPC.RestaurantesFavoritos.Where(m => m.Email == applicationUser.Email);
+                dbUPC.RestaurantesFavoritos.RemoveRange(favoritos);
+                db.SaveChanges();
+
+                db.Users.Remove(applicationUser);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
@@ -129,6 +150,7 @@ namespace UPC_Lunch.Controllers
             if (disposing)
             {
                 db.Dispose();
+                dbUPC.Dispose();
             }
             base.Dispose(disposing);
         }

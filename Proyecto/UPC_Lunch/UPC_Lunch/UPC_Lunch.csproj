@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\NotificationTypeHelper.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Migrations\201605251651488_Initial.cs" />
     <Compile Include="Migrations\201605251651488_Initial.Designer.cs">
       <DependentUpon>201605251651488_Initial.cs</DependentUpon>

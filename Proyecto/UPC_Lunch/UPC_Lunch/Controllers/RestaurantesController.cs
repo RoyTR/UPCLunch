@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using UPC_Lunch.Helpers;
 using UPC_Lunch.Models;
 
 namespace UPC_Lunch.Controllers
@@ -125,8 +126,47 @@ namespace UPC_Lunch.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Restaurante restaurante = db.Restaurantes.Find(id);
-            db.Restaurantes.Remove(restaurante);
-            db.SaveChanges();
+            if (restaurante != null)
+            {
+                UserHelper.RemoveUser(restaurante.Email);
+
+                var platos = db.Platos.Where(m => m.Restaurante.Email == restaurante.Email);
+                db.Platos.RemoveRange(platos);
+                db.SaveChanges();
+
+                var notificaciones = db.Notifications.Where(m => m.RestauranteId == restaurante.RestauranteId);
+                db.Notifications.RemoveRange(notificaciones);
+                db.SaveChanges();
+
+                db.Restaurantes.Remove(restaurante);
+                db.SaveChanges();
+            }
+            /*
+            using (var transaction = new ApplicationDbContext().Database.BeginTransaction())
+            {
+                ApplicationDbContext context = new ApplicationDbContext();
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = userManager.FindById(restaurante.Email);
+                var rolesForUser = userManager.GetRoles(restaurante.Email);
+                var logins = user.Logins;
+
+                foreach (var login in logins.ToList())
+                {
+                    userManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        var result = userManager.RemoveFromRole(restaurante.Email, item);
+                    }
+                }
+                userManager.Delete(user);
+                transaction.Commit();
+            }
+            */
             return RedirectToAction("Index");
         }
 
@@ -146,5 +186,35 @@ namespace UPC_Lunch.Controllers
             }
             base.Dispose(disposing);
         }
+
+        /*
+        public void RemoveUser(string UserMail)
+        {
+            using (var transaction = new ApplicationDbContext().Database.BeginTransaction())
+            {
+                ApplicationDbContext context = new ApplicationDbContext();
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = userManager.FindByEmail(UserMail);
+                var rolesForUser = userManager.GetRoles(user.Id);
+                var logins = user.Logins;
+
+                foreach (var login in logins.ToList())
+                {
+                    userManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        var result = userManager.RemoveFromRole(user.Id, item);
+                    }
+                }
+                userManager.Delete(user);
+                transaction.Commit();
+            }
+        }
+        */
     }
 }
