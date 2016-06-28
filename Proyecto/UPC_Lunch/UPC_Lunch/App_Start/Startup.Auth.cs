@@ -58,11 +58,11 @@ namespace UPC_Lunch
                appId: "1122576874467446",
                appSecret: "484d408dfbb891d3695f406a63ddd921");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "234764823572-9h3kf22k19dmckhml9j3hr3udl7kimr0.apps.googleusercontent.com",
-                ClientSecret = "UlaWy07Z6rFs_-knccUw0ghUN8MDgYc55y"
-            });
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "234764823572-9h3kf22k19dmckhml9j3hr3udl7kimr0.apps.googleusercontent.com",
+            //    ClientSecret = "UlaWy07Z6rFs_-knccUw0ghUN8MDgYc55y"
+            //});
         }
     }
 }
